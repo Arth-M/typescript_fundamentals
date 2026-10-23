@@ -6,7 +6,7 @@ I followed the lessons, wrote the exercises and notes as I went, and put this di
 
 ## Contents
 
-- [`notes-ts-fundamentals-v4/`](./notes-ts-fundamentals-v4): my notes and code examples from each lesson
+- [`notes-ts-fundamentals-v4/`](./notes-ts-fundamentals-v4): notes and code examples from each lesson
 - [`welcome-to-ts/`](./welcome-to-ts): the first hands-on TypeScript project from the course
 
 ## Credits
