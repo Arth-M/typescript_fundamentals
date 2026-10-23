@@ -1,0 +1,14 @@
+{
+    "include": ["src"],
+    "compilerOptions": {
+        "module": "nodenext",
+        "outDir": "dist",
+        "target": "ES2018",
+        "moduleResolution": "nodenext",
+        "noUnusedParameters": false,
+        "noUnusedLocals": false,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true
+    }
+}
