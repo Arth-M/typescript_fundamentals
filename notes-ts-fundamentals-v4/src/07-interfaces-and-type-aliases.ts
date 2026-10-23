@@ -3,25 +3,25 @@ type Amount = {
   currency: string
   value: number
 }
-/*
-// function printAmount(amt: Amount) {
-//     console.log(amt)
 
-//     const { currency, value } = amt
-//     console.log(`${currency} ${value}`)
-// }
+function printAmount(amt: Amount) {
+    console.log(amt)
 
-// const donation = {
-//     currency: "USD",
-//     value: 30.0,
-//     description: "Donation to food bank",
-// }
+    const { currency, value } = amt
+    console.log(`${currency} ${value}`)
+}
 
-// printAmount(donation) //✔️ Valid
+const donation = {
+    currency: "USD",
+    value: 30.0,
+    description: "Donation to food bank",
+}
+
+printAmount(donation) //✔️ Valid
 
 
 //? Let's look at a familiar example from the last chapter
-/*
+
 // function flipCoin() {
 //     if (Math.random() > 0.5) return "heads"
 //     return "tails"
@@ -32,86 +32,99 @@ type Amount = {
 // export function maybeGetUserInfo():
 //     | readonly ["error", Error]
 //     | readonly ["success", { name: string; email: string }] {
-//     // implementation is the same in both examples
-//     if (flipCoin() === 'heads') {
-//         return success
-//     } else {
-//         return fail
-//     }
-// }
+  //     // implementation is the same in both examples
+  //     if (flipCoin() === 'heads') {
+    //         return success
+    //     } else {
+      //         return fail
+      //     }
+      // }
 
-//? Let's model the return type as an interface
-/*
-// type UserInfoOutcomeError = readonly ["error", Error]
-// type UserInfoOutcomeSuccess = readonly [
-//     "success",
-//     { readonly name: string; readonly email: string },
-// ]
-// type UserInfoOutcome =
-//     | UserInfoOutcomeError
-//     | UserInfoOutcomeSuccess
+      //? Let's model the return type as a type alias
+
+      type UserInfoOutcomeError = readonly ["error", Error]
+      type UserInfoOutcomeSuccess = readonly [
+        "success",
+        { readonly name: string; readonly email: string },
+      ]
+      type UserInfoOutcome =
+      | UserInfoOutcomeError
+      | UserInfoOutcomeSuccess
 
 
-//* Inheritance in type aliases
-/*
-// type SpecialDate = Date & { getDescription(): string }
+      const success: UserInfoOutcomeSuccess = ["success", { name: "Mike North", email: "mike@example.com" }]
+      const fail: UserInfoOutcomeError = ["error", new Error("Something went wrong!")]
+      export function maybeGetUserInfo():
+          UserInfoOutcome {
+            // implementation is the same in both examples
+            if (flipCoin() === 'heads') {
+                  return success
+              } else {
+                    return fail
+                }
+            }
 
-// const newYearsEve: SpecialDate
-//     //                    ^?
-//     = Object.assign(
-//         new Date(),
-//         { getDescription: () => "Last day of the year" }
-//     )
+      //* Inheritance in type aliases
 
-// newYearsEve.getDescription
+      type SpecialDate = Date & { getDescription(): string }
+
+      const newYearsEve: SpecialDate
+    //                    ^?
+        = Object.assign(
+            new Date(),
+            { getDescription: () => "Last day of the year" }
+        )
+
+    newYearsEve.getDescription
 // //             ^?
 
 //* Interfaces
-/*
-// interface Amount2 {
-//     currency: string
-//     value: number
-// }
 
-// function printAmount2(amt: Amount2) {
-//     amt
-// }
+interface Amount2 {
+    currency: string
+    value: number
+}
+
+function printAmount2(amt: Amount2) {
+    amt
+}
 
 //* Inheritance in interfaces
-/*
-// //? `extends` keyword
-// function consumeFood(arg) { }
 
-// class AnimalThatEats {
-//     eat(food) {
-//         consumeFood(food)
-//     }
-// }
-// class Cat extends AnimalThatEats {
-//     meow() {
-//         return "meow"
-//     }
-// }
+//? `extends` keyword
+function consumeFood(arg: string) { }
 
-// const c = new Cat()
-// c.eat
-// c.meow()
+class AnimalThatEats {
+    eat(food: string) {
+        consumeFood(food)
+    }
+}
+class Cat extends AnimalThatEats {
+    meow() {
+        return "meow"
+    }
+}
 
-/*
-// interface Animal {
-//     isAlive(): boolean
-// }
-// interface Mammal extends Animal {
-//     getFurOrHairColor(): string
-// }
-// interface Hamster extends Mammal {
-//     squeak(): string
-// }
-// function careForHamster(h: Hamster) {
-//     h.getFurOrHairColor()
-//     h.squeak()
-//     //   ^|
-// }
+const c = new Cat()
+c.eat("cat food")
+c.meow()
+
+//  INTERFACES : you can have interfaces that extends interface, they inherit
+//  from the types and method types 
+interface Animal {
+    isAlive(): boolean
+}
+interface Mammal extends Animal {
+    getFurOrHairColor(): string
+}
+interface Hamster extends Mammal {
+    squeak(): string
+}
+function careForHamster(h: Hamster) {
+    h.getFurOrHairColor()
+    h.squeak()
+    //   ^|
+}
 
 
 //? `implements` keyword
@@ -197,7 +210,7 @@ type Amount = {
 //* Recursive types
 /*
 // type NestedNumbers = number | NestedNumbers[]
- 
+
 // const val: NestedNumbers = [3, 4, [5, 6, [7], 59], 221]
 /*
 // if (typeof val !== "number") {
